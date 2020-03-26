@@ -1,0 +1,100 @@
+{
+    "sykmelding": {
+        "id": "kode6",
+        "msgId": "06b2b55f-c2c5-4ee0-8e0a-6e252ec2a550",
+        "perioder": [
+            {
+                "fom": "2019-01-01",
+                "tom": "2019-01-02",
+                "gradert": null,
+                "reisetilskudd": false,
+                "behandlingsdager": null,
+                "aktivitetIkkeMulig": {
+                    "medisinskArsak": {
+                        "arsak": [],
+                        "beskrivelse": null
+                    },
+                    "arbeidsrelatertArsak": null
+                },
+                "avventendeInnspillTilArbeidsgiver": null
+            }
+        ],
+        "prognose": {
+            "erIArbeid": null,
+            "erIkkeIArbeid": null,
+            "hensynArbeidsplassen": null,
+            "arbeidsforEtterPeriode": false
+        },
+        "behandler": {
+            "fnr": "23131313",
+            "her": "231313",
+            "hpr": "13131313",
+            "tlf": "tel:42424",
+            "adresse": {
+                "gate": "Sannergata 2",
+                "land": null,
+                "kommune": "OSLO",
+                "postboks": null,
+                "postnummer": 1111
+            },
+            "fornavn": "PER",
+            "aktoerId": "131313131313",
+            "etternavn": "hansen",
+            "mellomnavn": null
+        },
+        "tiltakNAV": null,
+        "andreTiltak": null,
+        "arbeidsgiver": {
+            "navn": null,
+            "harArbeidsgiver": "EN_ARBEIDSGIVER",
+            "yrkesbetegnelse": null,
+            "stillingsprosent": null
+        },
+        "navnFastlege": "PER hansen",
+        "signaturDato": "2019-11-01T17:33:04.258",
+        "meldingTilNAV": {
+            "beskrivBistand": null,
+            "bistandUmiddelbart": false
+        },
+        "avsenderSystem": {
+            "navn": "Infodoc Plenario",
+            "versjon": "2019.2.10920.6"
+        },
+        "pasientAktoerId": "213213131313",
+        "kontaktMedPasient": {
+            "kontaktDato": null,
+            "begrunnelseIkkeKontakt": null
+        },
+        "behandletTidspunkt": "2019-10-31T23:00:00",
+        "medisinskVurdering": {
+            "yrkesskade": false,
+            "biDiagnoser": [],
+            "svangerskap": false,
+            "hovedDiagnose": {
+                "kode": "T99",
+                "tekst": "PCO (polycystisk ovarialt syndrom)",
+                "system": "2.16.578.1.12.4.1.1.7170"
+            },
+            "yrkesskadeDato": null,
+            "annenFraversArsak": null
+        },
+        "skjermesForPasient": false,
+        "tiltakArbeidsplassen": null,
+        "syketilfelleStartDato": "2019-01-01",
+        "utdypendeOpplysninger": {},
+        "meldingTilArbeidsgiver": null
+    },
+    "personNrPasient": "21312313",
+    "tlfPasient": "1323423424",
+    "personNrLege": "123134",
+    "navLogId": "4d3fad98-6c40-47ec-99b6-6ca7c98aa5ad",
+    "msgId": "06b2b55f-c2c5-4ee0-8e0a-6e252ec2a550",
+    "legekontorOrgNr": "444333",
+    "legekontorHerId": "33",
+    "legekontorReshId": "1313",
+    "legekontorOrgName": "Helese sentar",
+    "mottattDato": "2019-11-11T13:43:25.473879",
+    "rulesetVersion": "2",
+    "fellesformat": "{\"any\":[{\"msgInfo\":{\"type\":{\"v\":\"SYKMELD\",\"dn\":\"Medisinsk vurdering av arbeidsmulighet ved sykdom, sykmelding\"},\"genDate\":\"2018-07-31T08:26:10\",\"msgId\":\"28e0d505-ee5b-40d7-8488-354eb25ca99d\",\"processingStatus\":null,\"requestedPriority\":null,\"ack\":{\"v\":\"J\",\"dn\":\"Ja\"},\"conversationRef\":null,\"sender\":{\"comMethod\":{\"v\":\"EDI\",\"dn\":\"EDI\"},\"organisation\":{\"organisationName\":\"Kule helsetjenester AS\",\"typeOrganisation\":null,\"ident\":[{\"id\":\"1234634567\",\"typeId\":{\"v\":\"HER\",\"s\":\"2.16.578.1.12.4.1.1.9051\",\"dn\":\"HER-id\",\"ot\":null}},{\"id\":\"223456789\",\"typeId\":{\"v\":\"ENH\",\"s\":\"1.16.578.1.12.3.1.1.9051\",\"dn\":\"Organisasjonsnummeret i Enhetsregister (Brønnøysund)\",\"ot\":null}},{\"id\":\"0123\",\"typeId\":{\"v\":\"HER\",\"s\":\"1.23.456.7.89.1.2.3.4567.8912\",\"dn\":\"Identifikator fra Helsetjenesteenhetsregisteret (HER-id)\",\"ot\":null}}],\"address\":{\"type\":{\"v\":\"PST\",\"dn\":\"Postadresse\"},\"streetAdr\":\"TESTVEIEN 1\",\"postalCode\":\"1337\",\"city\":\"SANDVIKA\",\"postbox\":null,\"county\":null,\"country\":null},\"teleCom\":[],\"organisation\":null,\"healthcareProfessional\":{\"typeHealthcareProfessional\":null,\"roleToPatient\":null,\"familyName\":\"Sødal\",\"middleName\":\"Fos\",\"givenName\":\"Ingvild\",\"dateOfBirth\":null,\"sex\":null,\"nationality\":null,\"ident\":[{\"id\":\"1234356\",\"typeId\":{\"v\":\"HER\",\"s\":\"2.16.578.1.12.4.1.1.8268\",\"dn\":\"HER-id\",\"ot\":null}},{\"id\":\"12343567\",\"typeId\":{\"v\":\"FNR\",\"s\":\"2.16.578.1.12.4.1.1.8327\",\"dn\":\"Fødselsnummer\",\"ot\":null}},{\"id\":\"12343568\",\"typeId\":{\"v\":\"HPR\",\"s\":\"6.87.654.3.21.9.8.7.6543.2198\",\"dn\":\"HPR-nummer\",\"ot\":null}}],\"address\":null,\"teleCom\":[{\"typeTelecom\":{\"v\":\"WD\",\"dn\":\"Arbeidsplass, direktenummer\"},\"teleAddress\":{\"v\":\"tel:33333333\"}}]}}},\"receiver\":{\"comMethod\":{\"v\":\"EDI\",\"dn\":\"EDI\"},\"organisation\":{\"organisationName\":\"NAV IKT\",\"typeOrganisation\":null,\"ident\":[{\"id\":\"1234556\",\"typeId\":{\"v\":\"HER\",\"s\":\"2.16.578.1.12.4.1.1.9051\",\"dn\":\"HER-id\",\"ot\":null}},{\"id\":\"1234556\",\"typeId\":{\"v\":\"HER\",\"s\":\"1.23.456.7.89.1.2.3.4567.8912\",\"dn\":\"Identifikator fra Helsetjenesteenhetsregisteret\",\"ot\":null}}],\"address\":{\"type\":{\"v\":\"PST\",\"dn\":\"Postadresse\"},\"streetAdr\":\"Postboks 5 St Olavs plass\",\"postalCode\":\"0130\",\"city\":\"OSLO\",\"postbox\":null,\"county\":null,\"country\":null},\"teleCom\":[],\"organisation\":null,\"healthcareProfessional\":null}},\"otherReceiver\":[],\"patient\":{\"familyName\":\"BERGHEIM\",\"middleName\":\"YNDESDAL\",\"givenName\":\"DANIEL\",\"dateOfBirth\":\"1989-12-12\",\"sex\":null,\"nationality\":null,\"ident\":[{\"id\":\"12128913767\",\"typeId\":{\"v\":\"FNR\",\"s\":\"2.16.578.1.12.4.1.1.8327\",\"dn\":\"Fødselsnummer\",\"ot\":null}}],\"address\":{\"type\":{\"v\":\"PST\",\"dn\":\"Postadresse\"},\"streetAdr\":\"Oppdiktet gate 32\",\"postalCode\":\"1349\",\"city\":\"RYKKINN\",\"postbox\":null,\"county\":null,\"country\":null},\"teleCom\":[]},\"migversion\":\"v1.2 2006-05-24\"},\"document\":[{\"documentConnection\":null,\"contentType\":null,\"contentDescription\":null,\"contentCategory\":null,\"consent\":null,\"annotation\":null,\"fromDate\":null,\"toDate\":null,\"oidRef\":null,\"enquiryRefId\":null,\"refDoc\":{\"issueDate\":null,\"msgType\":{\"v\":\"XML\",\"dn\":\"XML-instans\"},\"id\":null,\"mimeType\":null,\"description\":null,\"compression\":null,\"fileReference\":null,\"content\":{\"any\":[{\"regelSettVersjon\":\"2\",\"syketilfelleStartDato\":\"2018-07-31\",\"pasient\":{\"navn\":{\"etternavn\":\"BERGHEIM\",\"mellomnavn\":\"YNDESDAL\",\"fornavn\":\"DANIEL\"},\"fodselsnummer\":{\"id\":\"12128913767\",\"typeId\":{\"v\":\"FNR\",\"s\":\"2.16.578.1.12.4.1.1.8116\",\"dn\":\"Fødselsnummer\",\"ot\":null}},\"kontaktInfo\":[],\"navnFastlege\":\"Jørn Gilberg\",\"navkontor\":\"0219\"},\"arbeidsgiver\":{\"harArbeidsgiver\":{\"v\":\"1\",\"dn\":\"Én arbeidsgiver\"},\"navnArbeidsgiver\":\"Pridok As\",\"yrkesbetegnelse\":\"Test Yrke Pasient 9\",\"stillingsprosent\":100},\"medisinskVurdering\":{\"hovedDiagnose\":{\"diagnosekode\":{\"v\":\"R99\",\"s\":\"2.16.578.1.12.4.1.1.7170\",\"dn\":\"Luftveissykdom IKA\",\"ot\":null}},\"biDiagnoser\":null,\"annenFraversArsak\":null,\"svangerskap\":null,\"yrkesskade\":null,\"yrkesskadeDato\":null,\"skjermesForPasient\":null},\"aktivitet\":{\"periode\":[{\"periodeFOMDato\":\"2018-07-31\",\"periodeTOMDato\":\"2018-08-04\",\"avventendeSykmelding\":null,\"gradertSykmelding\":null,\"aktivitetIkkeMulig\":{\"medisinskeArsaker\":{\"arsakskode\":[{\"v\":\"1\",\"dn\":\"Helsetilstanden hindrer pasienten i å være i aktivitet\"}],\"beskriv\":null},\"arbeidsplassen\":{\"arsakskode\":[],\"beskriv\":null}},\"behandlingsdager\":null,\"reisetilskudd\":null}]},\"prognose\":{\"arbeidsforEtterEndtPeriode\":true,\"beskrivHensynArbeidsplassen\":null,\"erIArbeid\":{\"egetArbeidPaSikt\":null,\"arbeidFraDato\":null,\"annetArbeidPaSikt\":null,\"vurderingDato\":null},\"erIkkeIArbeid\":null},\"utdypendeOpplysninger\":null,\"tiltak\":{\"tiltakArbeidsplassen\":null,\"tiltakNAV\":null,\"andreTiltak\":null},\"oppfolgingsplan\":null,\"meldingTilNav\":{\"bistandNAVUmiddelbart\":true,\"beskrivBistandNAV\":\"Test Ønsker Bistand\"},\"meldingTilArbeidsgiver\":null,\"kontaktMedPasient\":{\"behandletDato\":\"2018-07-30T22:00:00\",\"kontaktDato\":null,\"begrunnIkkeKontakt\":null},\"behandler\":{\"navn\":{\"etternavn\":\"Valda\",\"mellomnavn\":null,\"fornavn\":\"Inga Fos\"},\"id\":[{\"id\":\"300631044141\",\"typeId\":{\"v\":\"FNR\",\"s\":\"2.16.578.1.12.4.1.1.8116\",\"dn\":\"Fødselsnummer\",\"ot\":null}},{\"id\":\"123456\",\"typeId\":{\"v\":\"HER\",\"s\":\"2.16.578.1.12.4.1.1.8116\",\"dn\":\"HER-id\",\"ot\":null}}],\"adresse\":{\"type\":null,\"streetAdr\":null,\"postalCode\":null,\"city\":null,\"postbox\":null,\"county\":null,\"country\":null},\"kontaktInfo\":[{\"typeTelecom\":{\"v\":\"HP\",\"dn\":\"Hovedtelefon\"},\"teleAddress\":{\"v\":\"tel:33333333\"}}]},\"avsenderSystem\":{\"systemNavn\":\"Flott EPJ\",\"systemVersjon\":\"1.0.0\"},\"strekkode\":\"000210713120031072018040820160\"}]}}}],\"patientReport\":[],\"signature\":{\"signedInfo\":{\"canonicalizationMethod\":{\"content\":[],\"algorithm\":\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"},\"signatureMethod\":{\"content\":[],\"algorithm\":\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"},\"reference\":[{\"transforms\":{\"transform\":[{\"content\":[],\"algorithm\":\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"}]},\"digestMethod\":{\"content\":[],\"algorithm\":\"http://www.w3.org/2001/04/xmlenc#sha256\"},\"digestValue\":\"QlR2pL73ef1VBxa0jRN3ECV6oi+RDGPP+8vETLlKjjU=\",\"id\":null,\"uri\":\"\",\"type\":null}],\"id\":null},\"signatureValue\":{\"value\":null,\"id\":null},\"keyInfo\":{\"content\":[\"\\n                \",{\"name\":\"{http://www.w3.org/2000/09/xmldsig#}X509Data\",\"declaredType\":\"no.nav.helse.msgHead.XMLX509DataType\",\"scope\":\"javax.xml.bind.JAXBElement$GlobalScope\",\"value\":{\"x509IssuerSerialOrX509SKIOrX509SubjectName\":[{\"name\":\"{http://www.w3.org/2000/09/xmldsig#}X509Certificate\",\"declaredType\":\"[B\",\"scope\":\"no.nav.helse.msgHead.XMLX509DataType\",\"value\":\"tersjndgfnjknjkdfgnjkdfgkndfsgnjkldfgkjndgfknjnjkfdgnmmxvmfjvcxjknjnkcvxjncvxjnxcvjkncxvjnkjkncvxjkfdgjkdfgjknjn\",\"nil\":false,\"globalScope\":false,\"typeSubstituted\":false}]},\"nil\":false,\"globalScope\":true,\"typeSubstituted\":false},\"\\n            \"],\"id\":null},\"object\":[],\"id\":null}},{\"ediLoggId\":\"1807311226joakim51343.1\",\"avsender\":\"2134125125\",\"ebXMLSamtaleId\":\"deb6d7d1-139c-4885-aa22-b9362de06205\",\"mottaksId\":null,\"meldingsType\":\"xml\",\"avsenderRef\":\"SERIALNUMBER=2134125125, CN=TEST-Flott, OU=R&D, O=Flott AS, C=NO\",\"avsenderFnrFraDigSignatur\":\"300631044141\",\"mottattDatotid\":\"2018-07-31T10:26:26.000+0000\",\"orgNummer\":null,\"avsenderOrgNrFraDigSignatur\":null,\"partnerReferanse\":\"16524\",\"herIdentifikator\":\"\",\"ebRole\":\"Sykmelder\",\"ebService\":\"Sykmelding\",\"ebAction\":\"Registrering\"}]}",
+    "tssid": "13415"
+}
