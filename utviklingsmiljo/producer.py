@@ -4,16 +4,18 @@ from kafka import KafkaProducer
 
 producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
 
-sykemeldinger = glob.glob('./sykemeldinger/melding-*.json')
+meldinger = glob.glob('./kafka-meldinger/melding-*.json')
 
-for melding in sykemeldinger:
+for melding in meldinger:
     with open(melding, 'r', encoding='utf-8') as jsonfile:
         tmp_dict = json.load(jsonfile)
-        sykm_id = tmp_dict['sykmelding']['id']
+        # Sett til id i melding
+        melding_id = "test"
         data = json.dumps(tmp_dict)
         producer.send(
-            'privat-syfo-sm2013-automatiskBehandling',
-            key=sykm_id.encode('utf-8'),
+            # Sett topic
+            'topic1',
+            key=melding_id.encode('utf-8'),
             value=data.encode('utf-8')
         )
     jsonfile.close()

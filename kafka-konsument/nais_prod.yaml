@@ -1,0 +1,41 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: dvh-sykm-konsument
+  namespace: default
+  labels:
+    team: disykefravar
+spec:
+  image: {{ image }}
+  port: 8080
+  liveness:
+    path: /isAlive
+    initialDelay: 100
+  readiness:
+    path: /isReady
+    initialDelay: 100
+  prometheus:
+    enabled: true
+    path: /metrics
+  replicas:
+    min: 1
+    max: 1
+  vault:
+    enabled: true
+    paths:
+      - kvPath: /kv/prod/fss/dvh-sykm-konsument/default
+        mountPath: /app/secrets/default
+  ingresses:
+    - "https://dvh-sykm-konsument.nais.adeo.no"
+  resources:
+    limits:
+      cpu: 400m
+      memory: 448Mi
+    requests:
+      cpu: 125m
+      memory: 384Mi
+  env:
+    - name: JDBC_URL
+      value: "jdbc:oracle:thin:@dm09-scan.adeo.no:1521/dwh_ha"
+    - name: KAFKA_BOOTSTRAP_SERVERS
+      value: "SASL_SSL://a01apvl00145.adeo.no:8443,SASL_SSL://a01apvl00146.adeo.no:8443,SASL_SSL://a01apvl00147.adeo.no:8443,SASL_SSL://a01apvl00149.adeo.no:8443"
