@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class KonsumerService {
-        //TODO: Sett til hva du ønsker at kildesystemnavnet skal være i db.
-        public static final String KILDESYSTEM = "Konsumernavn";
 
         @Autowired
         MkIdentRepository mkIdentRepository;

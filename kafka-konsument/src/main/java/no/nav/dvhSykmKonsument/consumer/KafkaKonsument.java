@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 
 public class KafkaKonsument implements IKonsument {
+    //TODO: Sett til hva du ønsker at kildesystemnavnet skal være i db.
+    public static final String KILDESYSTEM = "Kildenavn";
+
     @Autowired
     Metrikk metrikk;
 
@@ -33,7 +36,7 @@ public class KafkaKonsument implements IKonsument {
         dvhModel.setKafkaOffset(offset);
         dvhModel.setKafkaMottattDato(mottatDato);
 
-        dvhModel.setKildesystem(service.KILDESYSTEM);
+        dvhModel.setKildesystem(KILDESYSTEM);
 
         service.lagreMelding(dvhModel);
     }
