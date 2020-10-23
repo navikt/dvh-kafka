@@ -1,0 +1,29 @@
+spring:
+  profiles: dev
+
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+
+  datasource:
+    url: "jdbc:mysql://localhost:3306/dvh_kafka_konsument"
+
+  hikari:
+    maximum-pool-size: 3
+    connection-timeout: 60000
+    poolName: hikariPool
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: dvh-kafka-konsument
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+vault:
+  path: testing/secrets/default
+
+truststore:
+  path: ingenting
+  password: ingenting

@@ -1,53 +1,48 @@
 spring:
   profiles:
-    active: @activatedProperties@, konsumer
+    active: @activatedProperties@
+
+    jpa:
+      database: oracle
+      database-platform: org.hibernate.dialect.Oracle10gDialect
+      hibernate.ddl-auto: none
+      show-sql: false
+      properties:
+        hibernate:
+          cache:
+            use_second_level_cache: false
+            use_query_cache: false
+          dialect: org.hibernate.dialect.Oracle10gDialect
+
+    datasource:
+      url: ${JDBC_URL}
+      driverClassName: oracle.jdbc.OracleDriver
+
+    hikari:
+      maximum-pool-size: 3
+      connection-timeout: 60000
+      poolName: hikariPool
+
+    kafka:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+      consumer:
+        #TODO: Set group-id til et unikt navn for konsumenten som kafka bruker for å vite hvor langt en konsument har lest.
+        group-id: dvh-kafka-konsument
+        auto-offset-reset: earliest
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        security.protocol: SASL_SSL
+        sasl:
+          mechanism: PLAIN
 
 # TODO: Fyll ut topicnavn
 kafka:
-    topic: topic
+    topic: topic1
 
 logging:
   config:
     classpath: logback-spring.xml
-
----
-
-spring:
-  profiles: prod
-
-  jpa:
-    database: oracle
-    database-platform: org.hibernate.dialect.Oracle10gDialect
-    hibernate.ddl-auto: none
-    show-sql: false
-    properties:
-      hibernate:
-        cache:
-          use_second_level_cache: false
-          use_query_cache: false
-        dialect: org.hibernate.dialect.Oracle10gDialect
-
-  datasource:
-    url: ${JDBC_URL}
-    driverClassName: oracle.jdbc.OracleDriver
-
-  hikari:
-    maximum-pool-size: 3
-    connection-timeout: 60000
-    poolName: hikariPool
-
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
-    consumer:
-      #TODO: Set group-id til et unikt navn for konsumenten som kafka bruker for å vite hvor langt en konsument har lest.
-      group-id: dvh-kafka-konsument
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    properties:
-      security.protocol: SASL_SSL
-      sasl:
-        mechanism: PLAIN
 
 vault:
   path: /app/secrets/default
@@ -62,51 +57,3 @@ management:
     base-path: /
     exposure.include: prometheus
     path-mapping.prometheus: /metrics
-
----
-
-spring:
-  profiles: dev
-
-  jpa:
-    hibernate.ddl-auto: update
-    show-sql: true
-
-# TODO: Byttes til ønsket database
-  datasource:
-    url: "jdbc:mysql://localhost:3306/dvh_kafka_konsument"
-
-  hikari:
-    maximum-pool-size: 3
-    connection-timeout: 60000
-    poolName: hikariPool
-
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: dvh-kafka-konsument
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-
-vault:
-  path: testing/secrets/default
-
-truststore:
-  path: ingenting
-  password: ingenting
-
----
-
-spring:
-  profiles: relast, konsumer
-
-relast:
-  topics:
-    -
-      name: privat-syfo-sm2013-automatiskBehandling
-      partitions:
-        -
-          partition: 0
-          offsetStart: 4
-          offsetStop: 4

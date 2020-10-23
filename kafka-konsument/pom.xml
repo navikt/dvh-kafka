@@ -48,18 +48,6 @@
 				<activatedProperties>prod</activatedProperties>
 			</properties>
 		</profile>
-		<profile>
-			<id>konsumer</id>
-			<properties>
-				<activatedProperties>konsumer</activatedProperties>
-			</properties>
-		</profile>
-		<profile>
-			<id>relast</id>
-			<properties>
-				<activatedProperties>relast</activatedProperties>
-			</properties>
-		</profile>
 	</profiles>
 
 	<dependencies>
