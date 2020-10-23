@@ -4,8 +4,7 @@ spring:
 
 # TODO: Fyll ut topicnavn
 kafka:
-    topic:
-      topic1: topic1
+    topic: topic
 
 logging:
   config:
