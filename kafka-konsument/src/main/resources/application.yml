@@ -6,7 +6,6 @@ spring:
 kafka:
     topic:
       topic1: topic1
-      dlq: dlq
 
 logging:
   config:
@@ -100,7 +99,7 @@ truststore:
 ---
 
 spring:
-  profiles: relast, dlq, konsumer
+  profiles: relast, konsumer
 
 relast:
   topics:

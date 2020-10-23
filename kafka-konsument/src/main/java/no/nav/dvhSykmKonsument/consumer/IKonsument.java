@@ -1,9 +1,7 @@
 package no.nav.dvhSykmKonsument.consumer;
 
 import lombok.SneakyThrows;
-import no.nav.dvhSykmKonsument.producer.DLQProdusent;
 import no.nav.dvhSykmKonsument.controller.Metrikk;
-import no.nav.dvhSykmKonsument.service.KonsumerService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +18,6 @@ public interface IKonsument extends MessageListener<String, String> {
     Logger LOGGER =
             LoggerFactory.getLogger(IKonsument.class);
 
-    DLQProdusent dlqProdusent();
-
     Metrikk metrikk();
 
     @SneakyThrows
@@ -37,7 +33,6 @@ public interface IKonsument extends MessageListener<String, String> {
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            dlqProdusent().sendMessage(record);
             throw new ParseReceivedSykmeldingException(record, e);
         }
         try {

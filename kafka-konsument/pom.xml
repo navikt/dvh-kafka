@@ -61,12 +61,6 @@
 				<activatedProperties>relast</activatedProperties>
 			</properties>
 		</profile>
-		<profile>
-			<id>dlq</id>
-			<properties>
-				<activatedProperties>dlq</activatedProperties>
-			</properties>
-		</profile>
 	</profiles>
 
 	<dependencies>

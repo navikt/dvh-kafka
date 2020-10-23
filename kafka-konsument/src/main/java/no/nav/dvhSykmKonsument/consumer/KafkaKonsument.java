@@ -3,10 +3,8 @@ package no.nav.dvhSykmKonsument.consumer;
 import no.nav.dvhSykmKonsument.controller.Metrikk;
 import no.nav.dvhSykmKonsument.model.dvh.DvhModel;
 import no.nav.dvhSykmKonsument.model.kilde.MottattMelding;
-import no.nav.dvhSykmKonsument.producer.DLQProdusent;
 import no.nav.dvhSykmKonsument.service.KonsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
 
 import java.util.Date;
 
@@ -15,15 +13,7 @@ public class KafkaKonsument implements IKonsument {
     Metrikk metrikk;
 
     @Autowired
-    DLQProdusent dlqProdusent;
-
-    @Autowired
     KonsumerService service;
-
-    @Override
-    public DLQProdusent dlqProdusent() {
-        return dlqProdusent;
-    }
 
     @Override
     public Metrikk metrikk() {
