@@ -1,12 +1,12 @@
-package no.nav.dvhSykmKonsument.service;
+package no.nav.dvh.kafka.konsument.service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.dvhSykmKonsument.model.dvh.DvhModel;
-import no.nav.dvhSykmKonsument.model.dvh.MkIdent;
-import no.nav.dvhSykmKonsument.model.kilde.MottattMelding;
-import no.nav.dvhSykmKonsument.repository.DvhModelRepository;
-import no.nav.dvhSykmKonsument.repository.MkIdentRepository;
+import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
+import no.nav.dvh.kafka.konsument.model.dvh.MkIdent;
+import no.nav.dvh.kafka.konsument.model.kilde.MottattMelding;
+import no.nav.dvh.kafka.konsument.repository.DvhModelRepository;
+import no.nav.dvh.kafka.konsument.repository.MkIdentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

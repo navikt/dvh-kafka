@@ -1,7 +1,7 @@
-package no.nav.dvhSykmKonsument.consumer;
+package no.nav.dvh.kafka.konsument.consumer;
 
 import lombok.SneakyThrows;
-import no.nav.dvhSykmKonsument.controller.Metrikk;
+import no.nav.dvh.kafka.konsument.controller.Metrikk;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

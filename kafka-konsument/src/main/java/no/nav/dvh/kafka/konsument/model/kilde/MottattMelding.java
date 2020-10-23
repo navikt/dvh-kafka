@@ -1,4 +1,4 @@
-package no.nav.dvhSykmKonsument.model.kilde;
+package no.nav.dvh.kafka.konsument.model.kilde;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

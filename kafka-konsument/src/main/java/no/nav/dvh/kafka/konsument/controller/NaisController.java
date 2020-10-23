@@ -1,4 +1,4 @@
-package no.nav.dvhSykmKonsument.controller;
+package no.nav.dvh.kafka.konsument.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

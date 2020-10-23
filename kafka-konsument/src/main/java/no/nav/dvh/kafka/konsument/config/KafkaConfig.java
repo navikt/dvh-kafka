@@ -1,7 +1,7 @@
-package no.nav.dvhSykmKonsument.config;
+package no.nav.dvh.kafka.konsument.config;
 
-import no.nav.dvhSykmKonsument.consumer.KafkaKonsument;
-import no.nav.dvhSykmKonsument.model.dvh.Secret;
+import no.nav.dvh.kafka.konsument.consumer.KafkaKonsument;
+import no.nav.dvh.kafka.konsument.model.dvh.Secret;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.util.backoff.FixedBackOff;
 import java.util.Arrays;
 import java.util.Map;
 
-import static no.nav.dvhSykmKonsument.consumer.IKonsument.*;
+import static no.nav.dvh.kafka.konsument.consumer.IKonsument.*;
 import static org.springframework.util.backoff.FixedBackOff.UNLIMITED_ATTEMPTS;
 
 @EnableKafka

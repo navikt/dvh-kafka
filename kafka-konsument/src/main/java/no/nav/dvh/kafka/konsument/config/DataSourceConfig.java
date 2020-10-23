@@ -1,6 +1,6 @@
-package no.nav.dvhSykmKonsument.config;
+package no.nav.dvh.kafka.konsument.config;
 
-import no.nav.dvhSykmKonsument.model.dvh.Secret;
+import no.nav.dvh.kafka.konsument.model.dvh.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

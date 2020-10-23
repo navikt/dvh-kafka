@@ -1,4 +1,4 @@
-package no.nav.dvhSykmKonsument.model.dvh;
+package no.nav.dvh.kafka.konsument.model.dvh;
 
 import lombok.Getter;
 import lombok.Setter;

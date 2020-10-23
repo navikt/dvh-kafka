@@ -1,6 +1,6 @@
-package no.nav.dvhSykmKonsument.repository;
+package no.nav.dvh.kafka.konsument.repository;
 
-import no.nav.dvhSykmKonsument.model.dvh.DvhModel;
+import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,9 @@
-package no.nav.dvhSykmKonsument.consumer;
+package no.nav.dvh.kafka.konsument.consumer;
 
-import no.nav.dvhSykmKonsument.controller.Metrikk;
-import no.nav.dvhSykmKonsument.model.dvh.DvhModel;
-import no.nav.dvhSykmKonsument.model.kilde.MottattMelding;
-import no.nav.dvhSykmKonsument.service.KonsumerService;
+import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
+import no.nav.dvh.kafka.konsument.service.KonsumerService;
+import no.nav.dvh.kafka.konsument.controller.Metrikk;
+import no.nav.dvh.kafka.konsument.model.kilde.MottattMelding;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
