@@ -1,10 +1,12 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: dvh-sykm-konsument
+  #Set til navn på applikasjonen
+  name: dvh-kafka-konsument
   namespace: default
   labels:
-    team: disykefravar
+    #Set til teamnavn i AD som eier applikasjonen
+    team: dvh
 spec:
   image: {{ image }}
   port: 8080
@@ -23,10 +25,13 @@ spec:
   vault:
     enabled: true
     paths:
-      - kvPath: /kv/preprod/fss/dvh-sykm-konsument/default
+      #Sett til path i vault
+      - kvPath: /kv/prod/fss/dvh-kafka-konsument/default
+        #Sett til hvor hemmeligheter skal ligge på konsumente
         mountPath: /app/secrets/default
+  #Set til URL til appliakasjonen
   ingresses:
-    - "https://dvh-sykm-konsument.nais.preprod.local"
+    - "https://dvh-kafka-konsument.nais.preprod.local"
   resources:
     limits:
       cpu: 400m

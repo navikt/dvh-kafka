@@ -21,7 +21,7 @@ public class Metrikk {
     }
 
     private String addPrefix(String navn) {
-        String METRIKK_PREFIX = "dvh-sykm-konsument_";
+        String METRIKK_PREFIX = "dvh-kafka-konsument_";
         return METRIKK_PREFIX + navn;
     }
 }

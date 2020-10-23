@@ -102,7 +102,7 @@ public class KafkaConfig {
         SeekToCurrentErrorHandler handler = new SeekToCurrentErrorHandler(
                 new FixedBackOff(THIRTY_MINUTES_INTERVAL, UNLIMITED_ATTEMPTS)
         );
-        handler.addNotRetryableException(ParseReceivedSykmeldingException.class);
+        handler.addNotRetryableException(ParseReceivedMessageException.class);
         return handler;
     }
 

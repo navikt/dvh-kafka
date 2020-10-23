@@ -39,7 +39,8 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: dvh-sykm
+      #TODO: Set group-id til et unikt navn for konsumenten som kafka bruker for å vite hvor langt en konsument har lest.
+      group-id: dvh-kafka-konsument
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -73,7 +74,7 @@ spring:
 
 # TODO: Byttes til ønsket database
   datasource:
-    url: "jdbc:mysql://localhost:3306/dvh_sykm_konsument"
+    url: "jdbc:mysql://localhost:3306/dvh_kafka_konsument"
 
   hikari:
     maximum-pool-size: 3
@@ -83,7 +84,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: dvh-sykm
+      group-id: dvh-kafka-konsument
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

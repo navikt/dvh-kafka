@@ -33,7 +33,7 @@ public interface IKonsument extends MessageListener<String, String> {
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new ParseReceivedSykmeldingException(record, e);
+            throw new ParseReceivedMessageException(record, e);
         }
         try {
             metrikk().tellepunkt(PROSESSERT);
@@ -45,8 +45,8 @@ public interface IKonsument extends MessageListener<String, String> {
 
     void prosseserMelding(String mottatMelding, String topic, int partisjon, long offset, Date mottatDato) throws Exception;
 
-    class ParseReceivedSykmeldingException extends Exception {
-        ParseReceivedSykmeldingException(ConsumerRecord<String, String> record, Exception e) {
+    class ParseReceivedMessageException extends Exception {
+        ParseReceivedMessageException(ConsumerRecord<String, String> record, Exception e) {
             LOGGER.error(
                     "Could not parse the following message from Kafka producer: " +
                             "Exception type: " + e.getClass().getName() +

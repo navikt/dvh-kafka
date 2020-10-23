@@ -31,7 +31,7 @@ services:
     - ./sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: dvh_sykm_konsument
+      MYSQL_DATABASE: dvh_kafka_konsument
     ports:
       - "3306:3306"
 
