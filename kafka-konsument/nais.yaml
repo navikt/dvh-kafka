@@ -24,11 +24,6 @@ spec:
     max: 1
   vault:
     enabled: true
-    paths:
-      #Sett til path i vault
-      - kvPath: /kv/prod/fss/dvh-kafka-konsument/default
-        #Sett til hvor hemmeligheter skal ligge på konsumente
-        mountPath: /app/secrets/default
   #Set til URL til appliakasjonen
   ingresses:
     - "https://dvh-kafka-konsument.nais.preprod.local"

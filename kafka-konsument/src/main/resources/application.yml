@@ -45,7 +45,7 @@ logging:
     classpath: logback-spring.xml
 
 vault:
-  path: /app/secrets/default
+  path: /var/run/secrets/nais.io/vault
 
 truststore:
   path: ${NAV_TRUSTSTORE_PATH}
