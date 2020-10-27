@@ -1,7 +1,11 @@
 package no.nav.dvh.kafka.konsument.service;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
 import no.nav.dvh.kafka.konsument.model.dvh.MkIdent;
 import no.nav.dvh.kafka.konsument.model.kilde.MottattMelding;
@@ -21,11 +25,19 @@ public class KonsumerService {
         @Autowired
         DvhModelRepository dvhModelRepository;
 
-        private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        private ObjectMapper mottattMeldingMapper = new ObjectMapper()
+                .setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
+                .setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
+                .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+                .setVisibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.ANY)
+                .registerModule(new JavaTimeModule())
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
         //TODO: Settes til kilde
         public MottattMelding lagMottattMelding(String mottattMelding) throws Exception {
-                return mapper.readValue(mottattMelding, MottattMelding.class);
+                return mottattMeldingMapper.readValue(mottattMelding, MottattMelding.class);
         }
 
         // TODO: Sett ønskede verdier til feltene som skal i databasen.
