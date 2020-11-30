@@ -10,10 +10,9 @@ import org.springframework.kafka.listener.MessageListener;
 
 import java.util.Date;
 
-public interface IKonsument extends MessageListener<String, String> {
+import static no.nav.dvh.kafka.konsument.controller.Metrikk.*;
 
-    String LEST = "meldinger_lest";
-    String PROSESSERT = "meldinger_prosessert";
+public interface IKonsument extends MessageListener<String, String> {
 
     Logger LOGGER =
             LoggerFactory.getLogger(IKonsument.class);
@@ -33,6 +32,7 @@ public interface IKonsument extends MessageListener<String, String> {
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (Exception e) {
+            metrikk().tellepunkt(IKKE_PROSSESERT);
             throw new ParseReceivedMessageException(record, e);
         }
         try {
