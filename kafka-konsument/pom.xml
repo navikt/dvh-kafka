@@ -8,7 +8,7 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>no.nav</groupId>
+	<groupId>no.nav.dvh</groupId>
 	<artifactId>kafka-konsument</artifactId>
 	<version>0.0.1-alpha.1</version>
 
@@ -110,6 +110,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>no.nav.dvh</groupId>
+			<artifactId>kafka-consumer-spring-boot-starter</artifactId>
+			<version>0.0.1-alpha.1</version>
 		</dependency>
 	</dependencies>
 

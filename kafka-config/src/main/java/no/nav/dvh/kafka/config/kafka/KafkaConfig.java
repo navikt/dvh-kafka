@@ -1,7 +1,7 @@
-package no.nav.dvh.kafka.konsument.config;
+package no.nav.dvh.kafka.config.kafka;
 
-import no.nav.dvh.kafka.konsument.consumer.KafkaKonsument;
-import no.nav.dvh.kafka.konsument.model.dvh.Secret;
+import no.nav.dvh.kafka.config.consumer.IKonsument;
+import no.nav.dvh.kafka.config.datasource.Secret;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.util.backoff.FixedBackOff;
 import java.util.Arrays;
 import java.util.Map;
 
-import static no.nav.dvh.kafka.konsument.consumer.IKonsument.*;
 import static org.springframework.util.backoff.FixedBackOff.UNLIMITED_ATTEMPTS;
 
 @EnableKafka
@@ -50,6 +49,9 @@ public class KafkaConfig {
     @Autowired
     ContainerProperties props;
 
+    @Autowired
+    IKonsument konsument;
+
     //TODO: Sett topic du ønsker
     @Bean
     public ContainerProperties containerProperties() {
@@ -59,7 +61,7 @@ public class KafkaConfig {
     //TODO: Sett til Konsumenerklassen
     @Bean
     public MessageListener<String, String> listener() {
-        return new KafkaKonsument();
+        return konsument;
     }
 
     @Bean
@@ -102,7 +104,7 @@ public class KafkaConfig {
         SeekToCurrentErrorHandler handler = new SeekToCurrentErrorHandler(
                 new FixedBackOff(THIRTY_MINUTES_INTERVAL, UNLIMITED_ATTEMPTS)
         );
-        handler.addNotRetryableException(ParseReceivedMessageException.class);
+        handler.addNotRetryableException(IKonsument.ParseReceivedMessageException.class);
         return handler;
     }
 

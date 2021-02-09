@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.konsument.controller;
+package no.nav.dvh.kafka.config.controller;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;

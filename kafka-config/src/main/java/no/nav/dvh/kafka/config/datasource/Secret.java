@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.konsument.model.dvh;
+package no.nav.dvh.kafka.config.datasource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

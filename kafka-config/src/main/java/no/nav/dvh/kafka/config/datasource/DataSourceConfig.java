@@ -1,6 +1,5 @@
-package no.nav.dvh.kafka.konsument.config;
+package no.nav.dvh.kafka.config.datasource;
 
-import no.nav.dvh.kafka.konsument.model.dvh.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

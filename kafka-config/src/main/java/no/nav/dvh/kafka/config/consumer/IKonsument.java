@@ -1,7 +1,7 @@
-package no.nav.dvh.kafka.konsument.consumer;
+package no.nav.dvh.kafka.config.consumer;
 
 import lombok.SneakyThrows;
-import no.nav.dvh.kafka.konsument.controller.Metrikk;
+import no.nav.dvh.kafka.config.controller.Metrikk;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +9,6 @@ import org.springframework.core.NestedRuntimeException;
 import org.springframework.kafka.listener.MessageListener;
 
 import java.util.Date;
-
-import static no.nav.dvh.kafka.konsument.controller.Metrikk.*;
 
 public interface IKonsument extends MessageListener<String, String> {
 
@@ -23,7 +21,7 @@ public interface IKonsument extends MessageListener<String, String> {
     @Override
     default void onMessage(ConsumerRecord<String,String> record) {
         try {
-            metrikk().tellepunkt(LEST);
+            metrikk().tellepunkt(Metrikk.LEST);
         } catch (Exception e) {
             LOGGER.warn("Unable to increment the read messages metric counter");
         }
@@ -32,11 +30,11 @@ public interface IKonsument extends MessageListener<String, String> {
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            metrikk().tellepunkt(IKKE_PROSSESERT);
+            metrikk().tellepunkt(Metrikk.IKKE_PROSSESERT);
             throw new ParseReceivedMessageException(record, e);
         }
         try {
-            metrikk().tellepunkt(PROSESSERT);
+            metrikk().tellepunkt(Metrikk.PROSESSERT);
         } catch (Exception e) {
             LOGGER.warn("Could not increment the processed messages metric counter");
         }
