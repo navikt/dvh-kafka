@@ -23,8 +23,8 @@ import static org.springframework.util.backoff.FixedBackOff.UNLIMITED_ATTEMPTS;
 @Configuration
 public class KafkaConfig {
     //TODO: Sett til topic du ønsker
-    @Value("${kafka.topic}")
-    private String topic;
+    @Value("${kafka.topics}")
+    private String[] topics;
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String kafkaBootstrapServers;
@@ -55,7 +55,7 @@ public class KafkaConfig {
     //TODO: Sett topic du ønsker
     @Bean
     public ContainerProperties containerProperties() {
-        return new ContainerProperties(topic);
+        return new ContainerProperties(topics);
     }
 
     //TODO: Sett til Konsumenerklassen
