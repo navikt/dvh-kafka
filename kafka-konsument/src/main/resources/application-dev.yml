@@ -27,3 +27,6 @@ vault:
 truststore:
   path: ingenting
   password: ingenting
+
+kafka:
+  topics: topic1
