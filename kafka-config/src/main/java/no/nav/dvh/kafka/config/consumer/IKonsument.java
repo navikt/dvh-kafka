@@ -26,7 +26,7 @@ public interface IKonsument extends MessageListener<String, String> {
             LOGGER.warn("Unable to increment the read messages metric counter");
         }
         try {
-            prosseserMelding(record.value(), record.topic(), record.partition(), record.offset(), new Date(record.timestamp()));
+            prosseserMelding(record.value(), record.key(), record.topic(), record.partition(), record.offset(), new Date(record.timestamp()), new Date());
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public interface IKonsument extends MessageListener<String, String> {
 
     }
 
-    void prosseserMelding(String mottatMelding, String topic, int partisjon, long offset, Date mottatDato) throws Exception;
+    void prosseserMelding(String mottatMelding, String key, String topic, int partisjon, long offset, Date mottattDato, Date lastetDato) throws Exception;
 
     class ParseReceivedMessageException extends Exception {
         ParseReceivedMessageException(ConsumerRecord<String, String> record, Exception e) {

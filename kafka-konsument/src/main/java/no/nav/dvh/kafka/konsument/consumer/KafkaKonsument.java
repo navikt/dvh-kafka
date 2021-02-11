@@ -28,7 +28,7 @@ public class KafkaKonsument implements IKonsument {
 
     //TODO: initier prosesseringen og lagring til database
     @Override
-    public void prosseserMelding(String mottatMelding, String topic, int partisjon, long offset, Date mottatDato) throws Exception {
+    public void prosseserMelding(String mottatMelding, String key, String topic, int partisjon, long offset, Date mottattDato, Date lastetDato) throws Exception {
         MottattMelding mottattMelding = service.lagMottattMelding(mottatMelding);
         DvhModel dvhModel = service.mottattMeldingTilDvhModelMapper(mottattMelding);
 
@@ -37,7 +37,8 @@ public class KafkaKonsument implements IKonsument {
         dvhModel.setKafkaTopic(topic);
         dvhModel.setKafkaPartition(partisjon);
         dvhModel.setKafkaOffset(offset);
-        dvhModel.setKafkaMottattDato(mottatDato);
+        dvhModel.setKafkaMottattDato(mottattDato);
+        dvhModel.setLastetDato(lastetDato);
 
         dvhModel.setKildesystem(KILDESYSTEM);
 
