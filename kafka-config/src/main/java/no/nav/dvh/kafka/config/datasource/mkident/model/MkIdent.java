@@ -1,10 +1,8 @@
-package no.nav.dvh.kafka.konsument.model.dvh;
+package no.nav.dvh.kafka.config.datasource.mkident.model;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(schema = "fk_person")

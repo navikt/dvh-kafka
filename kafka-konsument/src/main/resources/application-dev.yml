@@ -4,6 +4,11 @@ spring:
   jpa:
     hibernate.ddl-auto: update
     show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 
   kafka:
     bootstrap-servers: localhost:9092
@@ -26,6 +31,11 @@ serviceuser:
 
 database:
   target:
+    jdbcUrl: jdbc:mysql://localhost:3306/dvh_kafka_konsument
+    username: root
+    password: example
+    driverClassName: com.mysql.cj.jdbc.Driver
+  mkident:
     jdbcUrl: jdbc:mysql://localhost:3306/dvh_kafka_konsument
     username: root
     password: example
