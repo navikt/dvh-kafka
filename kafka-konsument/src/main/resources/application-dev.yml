@@ -5,14 +5,6 @@ spring:
     hibernate.ddl-auto: update
     show-sql: true
 
-  datasource:
-    url: "jdbc:mysql://localhost:3306/dvh_kafka_konsument"
-
-  hikari:
-    maximum-pool-size: 3
-    connection-timeout: 60000
-    poolName: hikariPool
-
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -21,12 +13,20 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
-vault:
-  path: testing/secrets/default
-
 truststore:
   path: ingenting
   password: ingenting
 
 kafka:
   topics: topic1
+
+serviceuser:
+  username: ingenting
+  password: ingenting
+
+database:
+  target:
+    jdbcUrl: jdbc:mysql://localhost:3306/dvh_kafka_konsument
+    username: root
+    password: example
+    driverClassName: com.mysql.cj.jdbc.Driver

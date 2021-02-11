@@ -1,7 +1,6 @@
 package no.nav.dvh.kafka.config.kafka;
 
 import no.nav.dvh.kafka.config.consumer.IKonsument;
-import no.nav.dvh.kafka.config.datasource.Secret;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +34,16 @@ public class KafkaConfig {
     @Value("${truststore.password}")
     private String truststorePassword;
 
+    @Value("${serviceuser.username}")
     private String kafkaUsername;
+
+    @Value("${serviceuser.password}")
     private String kafkaPassword;
 
     private String saslJaasConfig;
 
     @Autowired
     KafkaProperties kafkaProperties;
-
-    @Autowired
-    Secret secret;
 
     @Autowired
     ContainerProperties props;
@@ -71,12 +70,6 @@ public class KafkaConfig {
         container.setupMessageListener(listener());
         container.setErrorHandler(errorHandler());
         return container;
-    }
-
-    public KafkaConfig(Secret secret) {
-        this.secret = secret;
-        kafkaUsername = secret.getKafkaUsername();
-        kafkaPassword = secret.getKafkaPassword();
     }
 
     @Bean
