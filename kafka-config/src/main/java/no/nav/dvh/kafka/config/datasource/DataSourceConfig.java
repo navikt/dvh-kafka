@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+import static no.nav.dvh.kafka.config.datasource.DsUtil.hibernateNamingStrategy;
+
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig {
@@ -42,6 +44,7 @@ public class DataSourceConfig {
         return builder
                 .dataSource(targetDataSource())
                 .packages(packages)
+                .properties(hibernateNamingStrategy())
                 .build();
     }
 

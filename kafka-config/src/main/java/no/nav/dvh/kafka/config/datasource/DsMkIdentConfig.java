@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.config.datasource.mkident;
+package no.nav.dvh.kafka.config.datasource;
 
 import no.nav.dvh.kafka.config.datasource.mkident.model.MkIdent;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +14,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+
+import static no.nav.dvh.kafka.config.datasource.DsUtil.hibernateNamingStrategy;
 
 @Configuration
 @EnableTransactionManagement
@@ -35,6 +37,7 @@ public class DsMkIdentConfig {
         return builder
                 .dataSource(mkidentDataSource())
                 .packages(MkIdent.class)
+                .properties(hibernateNamingStrategy())
                 .build();
     }
 
