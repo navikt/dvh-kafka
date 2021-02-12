@@ -1,8 +1,10 @@
 package no.nav.dvh.kafka.config.kafka;
 
 import no.nav.dvh.kafka.config.consumer.IKonsument;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -85,6 +87,9 @@ public class KafkaConfig {
         consumerConfigs().put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, truststorePath);
         consumerConfigs().put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, truststorePassword);
         consumerConfigs().put(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
+        consumerConfigs().put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerConfigs().put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
 
         ConsumerFactory<String, String> consumerFactory =
                 new DefaultKafkaConsumerFactory<>(consumerConfigs());

@@ -29,8 +29,6 @@ spring:
         #TODO: Set group-id til et unikt navn for konsumenten som kafka bruker for å vite hvor langt en konsument har lest.
         group-id: dvh-kafka-konsument
         auto-offset-reset: earliest
-        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         security.protocol: SASL_SSL
         sasl:
