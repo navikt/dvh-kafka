@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.kafka.listener.MessageListener;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public interface IKonsument extends MessageListener<String, String> {
 
@@ -20,13 +22,18 @@ public interface IKonsument extends MessageListener<String, String> {
     @SneakyThrows
     @Override
     default void onMessage(ConsumerRecord<String,String> record) {
+        LocalDateTime kafkaMottatDato = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(record.timestamp()), ZoneId.of("Europe/Oslo"));
+
+        LocalDateTime lastetDato = LocalDateTime.now(ZoneId.of("Europe/Oslo"));
+
         try {
             metrikk().tellepunkt(Metrikk.LEST);
         } catch (Exception e) {
             LOGGER.warn("Unable to increment the read messages metric counter");
         }
         try {
-            prosseserMelding(record.value(), record.key(), record.topic(), record.partition(), record.offset(), new Date(record.timestamp()), new Date());
+            prosseserMelding(record, kafkaMottatDato, lastetDato);
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -41,7 +48,10 @@ public interface IKonsument extends MessageListener<String, String> {
 
     }
 
-    void prosseserMelding(String mottatMelding, String key, String topic, int partisjon, long offset, Date mottattDato, Date lastetDato) throws Exception;
+    void prosseserMelding(
+            ConsumerRecord<String, String> record,
+            LocalDateTime kafkaMottattDato,
+            LocalDateTime lastetDato) throws Exception;
 
     class ParseReceivedMessageException extends Exception {
         ParseReceivedMessageException(ConsumerRecord<String, String> record, Exception e) {

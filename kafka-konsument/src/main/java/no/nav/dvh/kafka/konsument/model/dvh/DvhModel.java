@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class DvhModel {
 
     private long akPerson1;
 
-    private Date lastetDato;
+    private LocalDateTime lastetDato;
 
     private Date kafkaMottattDato;
 

@@ -5,9 +5,11 @@ import no.nav.dvh.kafka.config.controller.Metrikk;
 import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
 import no.nav.dvh.kafka.konsument.service.KonsumerService;
 import no.nav.dvh.kafka.konsument.model.kilde.MottattMelding;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -28,16 +30,14 @@ public class KafkaKonsument implements IKonsument {
 
     //TODO: initier prosesseringen og lagring til database
     @Override
-    public void prosseserMelding(String mottatMelding, String key, String topic, int partisjon, long offset, Date mottattDato, Date lastetDato) throws Exception {
-        MottattMelding mottattMelding = service.lagMottattMelding(mottatMelding);
+    public void prosseserMelding(ConsumerRecord<String, String> record, LocalDateTime kafkaMottattDato, LocalDateTime lastetDato) throws Exception {
+        MottattMelding mottattMelding = service.lagMottattMelding(record.value());
         DvhModel dvhModel = service.mottattMeldingTilDvhModelMapper(mottattMelding);
 
-        dvhModel.setLastetDato(new Date());
-
-        dvhModel.setKafkaTopic(topic);
-        dvhModel.setKafkaPartition(partisjon);
-        dvhModel.setKafkaOffset(offset);
-        dvhModel.setKafkaMottattDato(mottattDato);
+        dvhModel.setKafkaTopic(record.topic());
+        dvhModel.setKafkaPartition(record.partition());
+        dvhModel.setKafkaOffset(record.offset());
+        dvhModel.setKafkaMottattDato(new Date(record.timestamp()));
         dvhModel.setLastetDato(lastetDato);
 
         dvhModel.setKildesystem(KILDESYSTEM);
