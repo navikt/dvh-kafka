@@ -38,6 +38,7 @@ public interface IKonsument extends MessageListener<String, String> {
             throw e;
         } catch (Exception e) {
             metrikk().tellepunkt(Metrikk.IKKE_PROSSESERT);
+            prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
             throw new ParseReceivedMessageException(record, e);
         }
         try {
@@ -49,6 +50,11 @@ public interface IKonsument extends MessageListener<String, String> {
     }
 
     void prosseserMelding(
+            ConsumerRecord<String, String> record,
+            LocalDateTime kafkaMottattDato,
+            LocalDateTime lastetDato) throws Exception;
+
+    void prosseserFeilendeMeilding(
             ConsumerRecord<String, String> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;

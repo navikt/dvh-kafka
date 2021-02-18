@@ -45,4 +45,9 @@ public class KafkaKonsument implements IKonsument {
         service.lagreMelding(dvhModel);
     }
 
+    @Override
+    public void prosseserFeilendeMeilding(ConsumerRecord<String, String> record, LocalDateTime kafkaMottattDato, LocalDateTime lastetDato) throws Exception {
+        //Ikke implementert
+    }
+
 }
