@@ -45,4 +45,12 @@
             <version>${logstash-logback-encoder.version}</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub DVH Kafka Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/navikt/dvh-kafka</url>
+        </repository>
+    </distributionManagement>
 </project>
