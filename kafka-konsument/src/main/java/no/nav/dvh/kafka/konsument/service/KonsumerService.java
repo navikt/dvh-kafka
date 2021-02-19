@@ -1,7 +1,7 @@
 package no.nav.dvh.kafka.konsument.service;
 
-import no.nav.dvh.kafka.config.datasource.mkident.MkIdentService;
-import no.nav.dvh.kafka.config.datasource.mkident.model.MkIdent;
+import no.nav.dvh.kafka.consumer.datasource.mkident.MkIdentService;
+import no.nav.dvh.kafka.consumer.datasource.mkident.model.MkIdent;
 import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
 import no.nav.dvh.kafka.konsument.model.kilde.MottattMelding;
 import no.nav.dvh.kafka.konsument.repository.DvhModelRepository;
@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static no.nav.dvh.kafka.config.MappingUtil.mottattMeldingMapper;
-
+import static no.nav.dvh.kafka.consumer.mapping.MappingUtil.mottattMeldingMapper;
 
 @Service
 @Transactional

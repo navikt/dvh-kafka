@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.config;
+package no.nav.dvh.kafka.consumer.mapping;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

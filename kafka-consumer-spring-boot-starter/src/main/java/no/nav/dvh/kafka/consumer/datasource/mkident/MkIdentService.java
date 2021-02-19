@@ -1,7 +1,6 @@
-package no.nav.dvh.kafka.config.datasource.mkident;
+package no.nav.dvh.kafka.consumer.datasource.mkident;
 
-import no.nav.dvh.kafka.config.datasource.mkident.model.MkIdent;
-import no.nav.dvh.kafka.config.datasource.mkident.repository.MkIdentRepository;
+import no.nav.dvh.kafka.consumer.datasource.mkident.model.MkIdent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

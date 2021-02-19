@@ -1,7 +1,7 @@
 package no.nav.dvh.kafka.konsument.consumer;
 
-import no.nav.dvh.kafka.config.consumer.IKonsument;
-import no.nav.dvh.kafka.config.controller.Metrikk;
+import no.nav.dvh.kafka.consumer.listener.IKonsument;
+import no.nav.dvh.kafka.consumer.controller.Metrikk;
 import no.nav.dvh.kafka.konsument.model.dvh.DvhModel;
 import no.nav.dvh.kafka.konsument.service.KonsumerService;
 import no.nav.dvh.kafka.konsument.model.kilde.MottattMelding;

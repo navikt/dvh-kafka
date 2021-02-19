@@ -1,6 +1,6 @@
 package no.nav.dvh.kafka.konsument;
 
-import no.nav.dvh.kafka.config.EnableKafkaConsumer;
+import no.nav.dvh.kafka.consumer.EnableKafkaConsumer;
 import org.springframework.boot.SpringApplication;
 
 @EnableKafkaConsumer

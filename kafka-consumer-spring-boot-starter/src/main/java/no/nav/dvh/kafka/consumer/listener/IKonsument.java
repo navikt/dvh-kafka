@@ -1,7 +1,8 @@
-package no.nav.dvh.kafka.config.consumer;
+package no.nav.dvh.kafka.consumer.listener;
 
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.SneakyThrows;
-import no.nav.dvh.kafka.config.controller.Metrikk;
+import no.nav.dvh.kafka.consumer.controller.Metrikk;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +37,17 @@ public interface IKonsument extends MessageListener<String, String> {
             prosseserMelding(record, kafkaMottatDato, lastetDato);
         } catch (NestedRuntimeException e) {
             throw e;
-        } catch (Exception e) {
+        } catch (MismatchedInputException e) {
             metrikk().tellepunkt(Metrikk.IKKE_PROSSESERT);
+            LOGGER.error(
+                    "Could not parse the following message from Kafka producer: " +
+                            "Exception type: " + e.getClass().getName() +
+                            ", Received message key: " + record.key() +
+                            ", Topic: " + record.topic() +
+                            ", Partition: " + record.partition() +
+                            ", Offset: " + record.offset()
+            );
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
-            throw new ParseReceivedMessageException(record, e);
         }
         try {
             metrikk().tellepunkt(Metrikk.PROSESSERT);
@@ -58,18 +66,5 @@ public interface IKonsument extends MessageListener<String, String> {
             ConsumerRecord<String, String> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
-
-    class ParseReceivedMessageException extends Exception {
-        ParseReceivedMessageException(ConsumerRecord<String, String> record, Exception e) {
-            LOGGER.error(
-                    "Could not parse the following message from Kafka producer: " +
-                            "Exception type: " + e.getClass().getName() +
-                            ", Received message key: " + record.key() +
-                            ", Topic: " + record.topic() +
-                            ", Partition: " + record.partition() +
-                            ", Offset: " + record.offset()
-            );
-        }
-    }
 
 }

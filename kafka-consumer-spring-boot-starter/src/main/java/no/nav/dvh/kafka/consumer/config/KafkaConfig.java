@@ -1,6 +1,6 @@
-package no.nav.dvh.kafka.config.kafka;
+package no.nav.dvh.kafka.consumer.config;
 
-import no.nav.dvh.kafka.config.consumer.IKonsument;
+import no.nav.dvh.kafka.consumer.listener.IKonsument;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
@@ -13,17 +13,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.*;
-import org.springframework.util.backoff.FixedBackOff;
 
 import java.util.Arrays;
 import java.util.Map;
 
-import static org.springframework.util.backoff.FixedBackOff.UNLIMITED_ATTEMPTS;
-
 @EnableKafka
 @Configuration
-public class KafkaConfig {
-    //TODO: Sett til topic du ønsker
+class KafkaConfig {
+
     @Value("${kafka.topics}")
     private String[] topics;
 
@@ -53,13 +50,12 @@ public class KafkaConfig {
     @Autowired
     IKonsument konsument;
 
-    //TODO: Sett topic du ønsker
+
     @Bean
     public ContainerProperties containerProperties() {
         return new ContainerProperties(topics);
     }
 
-    //TODO: Sett til Konsumenerklassen
     @Bean
     public MessageListener<String, String> listener() {
         return konsument;
@@ -97,13 +93,8 @@ public class KafkaConfig {
     }
 
     @Bean
-    public SeekToCurrentErrorHandler errorHandler() {
-        final long THIRTY_MINUTES_INTERVAL = 1800000;
-        SeekToCurrentErrorHandler handler = new SeekToCurrentErrorHandler(
-                new FixedBackOff(THIRTY_MINUTES_INTERVAL, UNLIMITED_ATTEMPTS)
-        );
-        handler.addNotRetryableException(IKonsument.ParseReceivedMessageException.class);
-        return handler;
+    public ContainerStoppingErrorHandler errorHandler() {
+        return new ContainerStoppingErrorHandler();
     }
 
 

@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.config.datasource;
+package no.nav.dvh.kafka.consumer.datasource.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +18,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-import static no.nav.dvh.kafka.config.datasource.DsUtil.hibernateNamingStrategy;
+import static no.nav.dvh.kafka.consumer.datasource.config.DsUtil.hibernateNamingStrategy;
 
 @Configuration
 @EnableTransactionManagement
-public class DataSourceConfig {
+class DataSourceConfig {
     @Autowired
     EntityScanPackages entityScanPackages;
 

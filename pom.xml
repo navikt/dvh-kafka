@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>kafka-config</module>
+        <module>kafka-consumer-spring-boot-starter</module>
         <module>kafka-konsument</module>
     </modules>
 

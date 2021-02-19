@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.config;
+package no.nav.dvh.kafka.consumer;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -16,6 +16,6 @@ import java.lang.annotation.*;
 @SpringBootApplication
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import( {DVHKafkaStarterConfig.class} )
+@Import( {KafkaConsumerConfig.class} )
 public @interface EnableKafkaConsumer {
 }

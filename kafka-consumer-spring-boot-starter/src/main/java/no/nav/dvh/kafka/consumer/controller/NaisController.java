@@ -1,11 +1,11 @@
-package no.nav.dvh.kafka.config.controller;
+package no.nav.dvh.kafka.consumer.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
-public class NaisController {
+class NaisController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("isAlive")
