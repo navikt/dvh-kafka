@@ -1,6 +1,5 @@
 spring:
-  profiles:
-    active: prod
+  profile: prod
 
     jpa:
       database: oracle

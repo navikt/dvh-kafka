@@ -1,5 +1,5 @@
 spring:
-  profiles: dev
+  profile: dev
 
   jpa:
     hibernate.ddl-auto: update
