@@ -45,18 +45,12 @@ class KafkaConfig {
     KafkaProperties kafkaProperties;
 
     @Autowired
-    ContainerProperties props;
-
-    @Autowired
     IKonsument konsument;
 
-
-    @Bean
     public ContainerProperties containerProperties() {
         return new ContainerProperties(topics);
     }
 
-    @Bean
     public MessageListener<String, String> listener() {
         return konsument;
     }
@@ -64,7 +58,7 @@ class KafkaConfig {
     @Bean
     public KafkaMessageListenerContainer<String, String> container() {
         KafkaMessageListenerContainer<String, String> container =
-                new KafkaMessageListenerContainer<>(consumerFactory(), props);
+                new KafkaMessageListenerContainer<>(consumerFactory(), containerProperties());
         container.setupMessageListener(listener());
         container.setErrorHandler(errorHandler());
         return container;
@@ -72,11 +66,11 @@ class KafkaConfig {
 
     @Bean
     public Map<String, Object> consumerConfigs() {
-
         kafkaProperties.setBootstrapServers(Arrays.asList(kafkaBootstrapServers));
         return kafkaProperties.buildConsumerProperties();
     }
 
+    @Bean
     public ConsumerFactory<String, String> consumerFactory() {
 
         saslJaasConfig = String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";", kafkaUsername, kafkaPassword);
