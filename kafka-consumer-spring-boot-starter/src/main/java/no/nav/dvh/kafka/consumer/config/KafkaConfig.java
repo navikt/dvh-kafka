@@ -14,6 +14,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.*;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -48,7 +49,9 @@ class KafkaConfig {
     IKonsument konsument;
 
     public ContainerProperties containerProperties() {
-        return new ContainerProperties(topics);
+        ContainerProperties props = new ContainerProperties(topics);
+        props.setAuthorizationExceptionRetryInterval(Duration.ofMinutes(1L));
+        return props;
     }
 
     public MessageListener<String, String> listener() {
