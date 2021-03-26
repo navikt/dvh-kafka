@@ -13,6 +13,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import static no.nav.dvh.kafka.consumer.controller.Metrikk.*;
+
 public interface IKonsument extends MessageListener<String, String> {
 
     Logger LOGGER =
@@ -29,7 +31,7 @@ public interface IKonsument extends MessageListener<String, String> {
         LocalDateTime lastetDato = LocalDateTime.now(ZoneId.of("Europe/Oslo"));
 
         try {
-            metrikk().tellepunkt(Metrikk.LEST);
+            metrikk().tellepunkt(LEST);
         } catch (Exception e) {
             LOGGER.warn("Unable to increment the read messages metric counter");
         }
@@ -38,7 +40,7 @@ public interface IKonsument extends MessageListener<String, String> {
         } catch (NestedRuntimeException e) {
             throw e;
         } catch (MismatchedInputException e) {
-            metrikk().tellepunkt(Metrikk.IKKE_PROSSESERT);
+            metrikk().tellepunkt(IKKE_PROSESSERT);
             LOGGER.error(
                     "Could not parse the following message from Kafka producer: " +
                             "Exception type: " + e.getClass().getName() +
@@ -50,7 +52,7 @@ public interface IKonsument extends MessageListener<String, String> {
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
         }
         try {
-            metrikk().tellepunkt(Metrikk.PROSESSERT);
+            metrikk().tellepunkt(PROSESSERT);
         } catch (Exception e) {
             LOGGER.warn("Could not increment the processed messages metric counter");
         }
