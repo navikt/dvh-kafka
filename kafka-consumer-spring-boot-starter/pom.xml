@@ -10,7 +10,7 @@
     </parent>
     <groupId>no.nav.dvh</groupId>
     <artifactId>kafka-consumer-spring-boot-starter</artifactId>
-    <version>0.0.1-alpha.1</version>
+    <version>0.0.1-alpha.2</version>
 
     <properties>
         <java.version>11</java.version>
@@ -43,6 +43,10 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
     </dependencies>
 
