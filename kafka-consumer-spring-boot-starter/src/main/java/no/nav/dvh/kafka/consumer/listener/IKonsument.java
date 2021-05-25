@@ -50,6 +50,9 @@ public interface IKonsument extends MessageListener<String, String> {
                             ", Offset: " + record.offset()
             );
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
+        } catch (Exception e) {
+            prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
+            throw e;
         }
         try {
             metrikk().tellepunkt(PROSESSERT);
