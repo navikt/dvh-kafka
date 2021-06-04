@@ -1,0 +1,3 @@
+[submodule "dvh-kafka-konsument"]
+	path = dvh-kafka-konsument
+	url = git@github.com:navikt/dvh-kafka-konsument.git

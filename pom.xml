@@ -10,7 +10,7 @@
 
     <modules>
         <module>kafka-consumer-spring-boot-starter</module>
-        <module>kafka-konsument</module>
+        <module>dvh-kafka-konsument</module>
     </modules>
 
 </project>
