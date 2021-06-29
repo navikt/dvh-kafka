@@ -15,10 +15,10 @@ import java.time.ZoneId;
 
 import static no.nav.dvh.kafka.consumer.controller.Metrikk.*;
 
-public interface IKonsument extends MessageListener<String, String> {
+public interface StringListener extends MessageListener<String, String> {
 
     Logger LOGGER =
-            LoggerFactory.getLogger(IKonsument.class);
+            LoggerFactory.getLogger(StringListener.class);
 
     Metrikk metrikk();
 

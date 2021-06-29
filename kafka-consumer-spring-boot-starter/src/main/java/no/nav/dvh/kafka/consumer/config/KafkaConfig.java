@@ -1,6 +1,6 @@
 package no.nav.dvh.kafka.consumer.config;
 
-import no.nav.dvh.kafka.consumer.listener.IKonsument;
+import no.nav.dvh.kafka.consumer.listener.StringListener;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
@@ -46,7 +46,7 @@ class KafkaConfig {
     KafkaProperties kafkaProperties;
 
     @Autowired
-    IKonsument konsument;
+    StringListener konsument;
 
     public ContainerProperties containerProperties() {
         ContainerProperties props = new ContainerProperties(topics);
