@@ -1,7 +1,6 @@
 package no.nav.dvh.kafka.consumer.avro;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
-import no.nav.dvh.kafka.consumer.avro.AvroListener;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
