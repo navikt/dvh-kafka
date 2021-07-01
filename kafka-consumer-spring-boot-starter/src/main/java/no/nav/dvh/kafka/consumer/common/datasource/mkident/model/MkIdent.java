@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.consumer.datasource.mkident.model;
+package no.nav.dvh.kafka.consumer.common.datasource.mkident.model;
 
 import lombok.Getter;
 

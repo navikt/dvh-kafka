@@ -1,6 +1,6 @@
-package no.nav.dvh.kafka.consumer.datasource.config;
+package no.nav.dvh.kafka.consumer.common.datasource.config;
 
-import no.nav.dvh.kafka.consumer.datasource.mkident.model.MkIdent;
+import no.nav.dvh.kafka.consumer.common.datasource.mkident.model.MkIdent;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-import static no.nav.dvh.kafka.consumer.datasource.config.DsUtil.hibernateNamingStrategy;
+import static no.nav.dvh.kafka.consumer.common.datasource.config.DsUtil.hibernateNamingStrategy;
 
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "no.nav.dvh.kafka.consumer.datasource.mkident",
+        basePackages = "no.nav.dvh.kafka.consumer.common.datasource.mkident",
         entityManagerFactoryRef = "mkidentEntityManagerFactory",
         transactionManagerRef = "mkidentTransactionManager"
 )

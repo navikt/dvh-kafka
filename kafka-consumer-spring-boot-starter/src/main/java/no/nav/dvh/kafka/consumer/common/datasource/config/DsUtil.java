@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.consumer.datasource.config;
+package no.nav.dvh.kafka.consumer.common.datasource.config;
 
 import java.util.Map;
 
