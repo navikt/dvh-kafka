@@ -25,7 +25,7 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
-public class AvroConfig {
+class AvroConfig {
 
     @Value("${kafka.topics}")
     private String[] topics;
