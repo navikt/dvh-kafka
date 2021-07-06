@@ -1,10 +1,10 @@
-package no.nav.dvh.kafka.consumer.avro;
+package no.nav.dvh.kafka.consumer.common;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
-import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 import org.apache.kafka.common.security.auth.SecurityProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.listener.ContainerProperties;
-import org.springframework.kafka.listener.ContainerStoppingErrorHandler;
-import org.springframework.kafka.listener.KafkaMessageListenerContainer;
+import org.springframework.kafka.listener.*;
 
 import java.time.Duration;
 import java.util.Map;
@@ -26,10 +24,14 @@ import static org.springframework.util.StringUtils.hasText;
 
 @EnableKafka
 @Configuration
-class AvroConfig {
+class KafkaConfig {
 
     @Value("${kafka.topics:topic1}")
     private String[] topics;
+    @Value("${kafka.serviceuser.username:}")
+    private String serviceuserUsername;
+    @Value("${kafka.serviceuser.password:}")
+    private String serviceuserPassword;
     @Value("${KAFKA_BROKERS:localhost:9091}")
     private String kafkaBootstrapServers;
     @Value("${KAFKA_TRUSTSTORE_PATH:}")
@@ -40,6 +42,7 @@ class AvroConfig {
     private String keystorePath;
     @Value("${KAFKA_CREDSTORE_PASSWORD:}")
     private String keystorePassword;
+
     @Value("${KAFKA_SCHEMA_REGISTRY:http://localhost:8081}")
     private String schemaRegistryURL;
     @Value("${KAFKA_SCHEMA_REGISTRY_USER:}")
@@ -48,15 +51,21 @@ class AvroConfig {
     private String schemaRegistryUserPassword;
 
     @Autowired
-    KafkaProperties kafkaProperties;
+    private KafkaProperties kafkaProperties;
 
     @Autowired
-    AvroListener consumer;
+    MessageListener listener;
 
-    public Map<String, Object> consumerProperties() {
+    Map<String, Object> consumerProperties() {
         var props = kafkaProperties.buildConsumerProperties();
 
         props.putIfAbsent(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrapServers);
+
+        if (hasText(serviceuserUsername)) {
+            String saslJaasConfig = String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";", serviceuserUsername, serviceuserPassword);
+            props.putIfAbsent(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, SecurityProtocol.SASL_PLAINTEXT.name);
+            props.putIfAbsent(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
+        }
 
         if (hasText(truststorePath)) {
             props.putIfAbsent(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, truststorePath);
@@ -69,33 +78,35 @@ class AvroConfig {
             props.putIfAbsent(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, keystorePassword);
         }
 
-        props.putIfAbsent(KafkaAvroDeserializerConfig.BASIC_AUTH_CREDENTIALS_SOURCE, "USER_INFO");
-        props.putIfAbsent(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
-        props.putIfAbsent(KafkaAvroDeserializerConfig.USER_INFO_CONFIG, "$schemaRegistryUser:$schemaRegistryUserPassword");
-
-        // Override this as spring kafka sets it to StringDeserializer by default
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+        if (props.get(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG).equals(KafkaAvroDeserializer.class)) {
+            props.putIfAbsent(KafkaAvroDeserializerConfig.BASIC_AUTH_CREDENTIALS_SOURCE, "USER_INFO");
+            props.putIfAbsent(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
+            props.putIfAbsent(KafkaAvroDeserializerConfig.USER_INFO_CONFIG, "$schemaRegistryUser:$schemaRegistryUserPassword");
+        }
 
         return props;
     }
 
-    @Bean
-    public KafkaMessageListenerContainer<String, GenericRecord> container() {
-        KafkaMessageListenerContainer<String, GenericRecord> container =
-                new KafkaMessageListenerContainer<>(consumerFactory(), containerProperties());
-        container.setupMessageListener(consumer);
-        container.setErrorHandler(new ContainerStoppingErrorHandler());
-        return container;
-    }
-
-    public ConsumerFactory<String, GenericRecord> consumerFactory() {
-        return new DefaultKafkaConsumerFactory(consumerProperties());
-    }
-
-    public ContainerProperties containerProperties() {
+    private ContainerProperties containerProperties() {
         ContainerProperties props = new ContainerProperties(topics);
         props.setAuthorizationExceptionRetryInterval(Duration.ofMinutes(1L));
         return props;
     }
 
+    private ErrorHandler containerErrorHandler() {
+        return new ContainerStoppingErrorHandler();
+    }
+
+    private ConsumerFactory consumerFactory() {
+        return new DefaultKafkaConsumerFactory(consumerProperties());
+    }
+
+    @Bean
+    KafkaMessageListenerContainer container() {
+        KafkaMessageListenerContainer container =
+                new KafkaMessageListenerContainer(consumerFactory(), containerProperties());
+        container.setupMessageListener(listener);
+        container.setErrorHandler(containerErrorHandler());
+        return container;
+    }
 }

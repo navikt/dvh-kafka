@@ -16,6 +16,6 @@ import java.lang.annotation.*;
 @SpringBootApplication
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import( {CommonConfig.class, StringConsumerConfig.class} )
+@Import( {CommonConfig.class} )
 public @interface EnableKafkaConsumer {
 }
