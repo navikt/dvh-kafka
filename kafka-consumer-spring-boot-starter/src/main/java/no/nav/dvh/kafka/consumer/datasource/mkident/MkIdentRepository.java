@@ -1,7 +1,7 @@
-package no.nav.dvh.kafka.consumer.common.datasource.mkident;
+package no.nav.dvh.kafka.consumer.datasource.mkident;
 
 
-import no.nav.dvh.kafka.consumer.common.datasource.mkident.model.MkIdent;
+import no.nav.dvh.kafka.consumer.datasource.mkident.model.MkIdent;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

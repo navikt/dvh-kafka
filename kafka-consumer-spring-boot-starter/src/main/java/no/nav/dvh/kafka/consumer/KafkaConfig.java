@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.consumer.common;
+package no.nav.dvh.kafka.consumer;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;

@@ -1,8 +1,9 @@
-package no.nav.dvh.kafka.consumer.string;
+package no.nav.dvh.kafka.consumer.listener;
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.SneakyThrows;
-import no.nav.dvh.kafka.consumer.common.controller.Metrikk;
+import no.nav.dvh.kafka.consumer.controller.Metrikk;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,18 +14,18 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import static no.nav.dvh.kafka.consumer.common.controller.Metrikk.*;
+import static no.nav.dvh.kafka.consumer.controller.Metrikk.*;
 
-public interface StringListener extends MessageListener<String, String> {
+public interface AvroListener extends MessageListener<String, GenericRecord> {
 
     Logger LOGGER =
-            LoggerFactory.getLogger(StringListener.class);
+            LoggerFactory.getLogger(AvroListener.class);
 
     Metrikk metrikk();
 
     @SneakyThrows
     @Override
-    default void onMessage(ConsumerRecord<String,String> record) {
+    default void onMessage(ConsumerRecord<String,GenericRecord> record) {
         LocalDateTime kafkaMottatDato = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(record.timestamp()), ZoneId.of("Europe/Oslo"));
 
@@ -63,12 +64,12 @@ public interface StringListener extends MessageListener<String, String> {
     }
 
     void prosseserMelding(
-            ConsumerRecord<String, String> record,
+            ConsumerRecord<String, GenericRecord> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
 
     void prosseserFeilendeMeilding(
-            ConsumerRecord<String, String> record,
+            ConsumerRecord<String, GenericRecord> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
 
