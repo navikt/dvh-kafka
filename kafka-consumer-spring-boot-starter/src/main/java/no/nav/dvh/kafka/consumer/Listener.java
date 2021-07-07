@@ -1,4 +1,4 @@
-package no.nav.dvh.kafka.consumer.listener;
+package no.nav.dvh.kafka.consumer;
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.SneakyThrows;
@@ -15,26 +15,22 @@ import java.time.ZoneId;
 
 import static no.nav.dvh.kafka.consumer.controller.Metrikk.*;
 
-public interface StringListener extends MessageListener<String, String> {
+public interface Listener<K, V> extends MessageListener<K, V> {
 
     Logger LOGGER =
-            LoggerFactory.getLogger(StringListener.class);
+            LoggerFactory.getLogger(Listener.class);
 
     Metrikk metrikk();
 
     @SneakyThrows
     @Override
-    default void onMessage(ConsumerRecord<String,String> record) {
+    default void onMessage(ConsumerRecord<K , V> record) {
         LocalDateTime kafkaMottatDato = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(record.timestamp()), ZoneId.of("Europe/Oslo"));
 
         LocalDateTime lastetDato = LocalDateTime.now(ZoneId.of("Europe/Oslo"));
 
-        try {
-            metrikk().tellepunkt(LEST);
-        } catch (Exception e) {
-            LOGGER.warn("Unable to increment the read messages metric counter");
-        }
+        metrikk().tellepunkt(LEST);
         try {
             prosseserMelding(record, kafkaMottatDato, lastetDato);
         } catch (NestedRuntimeException e) {
@@ -54,21 +50,17 @@ public interface StringListener extends MessageListener<String, String> {
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
             throw e;
         }
-        try {
-            metrikk().tellepunkt(PROSESSERT);
-        } catch (Exception e) {
-            LOGGER.warn("Could not increment the processed messages metric counter");
-        }
 
+        metrikk().tellepunkt(PROSESSERT);
     }
 
     void prosseserMelding(
-            ConsumerRecord<String, String> record,
+            ConsumerRecord<K, V> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
 
     void prosseserFeilendeMeilding(
-            ConsumerRecord<String, String> record,
+            ConsumerRecord<K, V> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
 
