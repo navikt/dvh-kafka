@@ -26,11 +26,11 @@ import static org.springframework.util.StringUtils.hasText;
 @Configuration
 class KafkaConfig {
 
-    @Value("${kafka.topics:topic1}")
+    @Value("${dvh-kafka.topics:topic1}")
     private String[] topics;
-    @Value("${kafka.serviceuser.username:}")
+    @Value("${dvh-kafka.serviceuser.username:}")
     private String serviceuserUsername;
-    @Value("${kafka.serviceuser.password:}")
+    @Value("${dvh-kafka.serviceuser.password:}")
     private String serviceuserPassword;
     @Value("${KAFKA_BROKERS:localhost:9091}")
     private String kafkaBootstrapServers;

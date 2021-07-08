@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 class DsMkIdentConfig {
 
     @Bean(name = "mkIdentDataSource")
-    @ConfigurationProperties(prefix = "database.mkident")
+    @ConfigurationProperties(prefix = "dvh-kafka.database.mkident")
     public DataSource mkidentDataSource() {
         return DataSourceBuilder.create().build();
     }

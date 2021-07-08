@@ -31,7 +31,7 @@ class DataSourceConfig {
 
     @Primary
     @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "database.target")
+    @ConfigurationProperties(prefix = "dvh-kafka.database.target")
     public DataSource targetDataSource() {
         return DataSourceBuilder.create().build();
     }
