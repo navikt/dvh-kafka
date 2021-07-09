@@ -1,0 +1,6 @@
+spring:
+  profile: local
+
+dvh-kafka:
+  database.target.driverClassName: com.mysql.cj.jdbc.Driver
+  database.mkident.driverClassName: com.mysql.cj.jdbc.Driver

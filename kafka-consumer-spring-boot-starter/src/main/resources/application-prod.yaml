@@ -11,3 +11,7 @@ spring:
           use_second_level_cache: false
           use_query_cache: false
         dialect: org.hibernate.dialect.Oracle10gDialect
+
+dvh-kafka:
+  database.target.driverClassName: oracle.jdbc.OracleDriver
+  database.mkident.driverClassName: oracle.jdbc.OracleDriver
