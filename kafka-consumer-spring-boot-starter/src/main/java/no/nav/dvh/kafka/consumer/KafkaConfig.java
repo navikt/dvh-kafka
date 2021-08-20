@@ -1,12 +1,8 @@
 package no.nav.dvh.kafka.consumer;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
-import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
-import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
-import org.apache.kafka.common.config.SslConfigs;
-import org.apache.kafka.common.security.auth.SecurityProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -18,8 +14,13 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.*;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Map;
 
+import static io.confluent.kafka.serializers.KafkaAvroDeserializerConfig.*;
+import static org.apache.kafka.clients.CommonClientConfigs.*;
+import static org.apache.kafka.common.config.SslConfigs.*;
+import static org.apache.kafka.common.security.auth.SecurityProtocol.*;
 import static org.springframework.util.StringUtils.hasText;
 
 @EnableKafka
@@ -32,7 +33,7 @@ class KafkaConfig {
     private String serviceuserUsername;
     @Value("${dvh-kafka.serviceuser.password:}")
     private String serviceuserPassword;
-    @Value("${KAFKA_BROKERS:localhost:9091}")
+    @Value("${KAFKA_BROKERS:localhost:9092}")
     private String kafkaBootstrapServers;
     @Value("${KAFKA_TRUSTSTORE_PATH:}")
     private String truststorePath;
@@ -58,31 +59,34 @@ class KafkaConfig {
 
     Map<String, Object> consumerProperties() {
         var props = kafkaProperties.buildConsumerProperties();
+        var defaultBootstrapServers = Arrays.asList("localhost:9092");
 
-        props.putIfAbsent(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrapServers);
+        if (props.get(BOOTSTRAP_SERVERS_CONFIG).equals(defaultBootstrapServers)) {
+            props.put(BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrapServers);
+        }
 
         if (hasText(serviceuserUsername)) {
             String saslJaasConfig = String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";", serviceuserUsername, serviceuserPassword);
-            props.putIfAbsent(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, SecurityProtocol.SASL_PLAINTEXT.name);
+            props.putIfAbsent(SECURITY_PROTOCOL_CONFIG, SASL_PLAINTEXT.name);
             props.putIfAbsent(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
         }
 
         if (hasText(truststorePath)) {
-            props.putIfAbsent(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, truststorePath);
-            props.putIfAbsent(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, truststorePassword);
+            props.putIfAbsent(SSL_TRUSTSTORE_LOCATION_CONFIG, truststorePath);
+            props.putIfAbsent(SSL_TRUSTSTORE_PASSWORD_CONFIG, truststorePassword);
         }
 
         if (hasText(keystorePath)) {
-            props.putIfAbsent(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, SecurityProtocol.SSL.name);
-            props.putIfAbsent(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, keystorePath);
-            props.putIfAbsent(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, keystorePassword);
+            props.putIfAbsent(SECURITY_PROTOCOL_CONFIG, SSL.name);
+            props.putIfAbsent(SSL_KEYSTORE_LOCATION_CONFIG, keystorePath);
+            props.putIfAbsent(SSL_KEYSTORE_PASSWORD_CONFIG, keystorePassword);
         }
 
         if (props.get(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG).equals(KafkaAvroDeserializer.class)) {
-            props.putIfAbsent(KafkaAvroDeserializerConfig.BASIC_AUTH_CREDENTIALS_SOURCE, "USER_INFO");
-            props.putIfAbsent(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
-            props.putIfAbsent(KafkaAvroDeserializerConfig.USER_INFO_CONFIG, "$schemaRegistryUser:$schemaRegistryUserPassword");
-            props.putIfAbsent(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
+            props.putIfAbsent(BASIC_AUTH_CREDENTIALS_SOURCE, "USER_INFO");
+            props.putIfAbsent(SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
+            props.putIfAbsent(USER_INFO_CONFIG, "$schemaRegistryUser:$schemaRegistryUserPassword");
+            props.putIfAbsent(SPECIFIC_AVRO_READER_CONFIG, true);
         }
 
         return props;
