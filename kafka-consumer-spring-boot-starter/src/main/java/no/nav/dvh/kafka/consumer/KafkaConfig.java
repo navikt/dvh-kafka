@@ -19,6 +19,7 @@ import java.util.Map;
 
 import static io.confluent.kafka.serializers.KafkaAvroDeserializerConfig.*;
 import static org.apache.kafka.clients.CommonClientConfigs.*;
+import static org.apache.kafka.common.config.SaslConfigs.*;
 import static org.apache.kafka.common.config.SslConfigs.*;
 import static org.apache.kafka.common.security.auth.SecurityProtocol.*;
 import static org.springframework.util.StringUtils.hasText;
@@ -43,7 +44,6 @@ class KafkaConfig {
     private String keystorePath;
     @Value("${KAFKA_CREDSTORE_PASSWORD:}")
     private String keystorePassword;
-
     @Value("${KAFKA_SCHEMA_REGISTRY:http://localhost:8081}")
     private String schemaRegistryURL;
     @Value("${KAFKA_SCHEMA_REGISTRY_USER:}")
@@ -67,8 +67,9 @@ class KafkaConfig {
 
         if (hasText(serviceuserUsername)) {
             String saslJaasConfig = String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";", serviceuserUsername, serviceuserPassword);
-            props.putIfAbsent(SECURITY_PROTOCOL_CONFIG, SASL_PLAINTEXT.name);
-            props.putIfAbsent(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
+            props.putIfAbsent(SECURITY_PROTOCOL_CONFIG, SASL_SSL.name);
+            props.putIfAbsent(SASL_MECHANISM, "PLAIN");
+            props.putIfAbsent(SASL_JAAS_CONFIG, saslJaasConfig);
         }
 
         if (hasText(truststorePath)) {
