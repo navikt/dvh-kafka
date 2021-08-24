@@ -1,6 +1,6 @@
 package no.nav.dvh.kafka.consumer.datasource.config;
 
-import no.nav.dvh.kafka.consumer.datasource.mkident.model.MkIdent;
+import no.nav.dvh.kafka.consumer.datasource.personidentity.PersonIdentity;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -19,32 +19,32 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "no.nav.dvh.kafka.consumer.datasource.mkident",
-        entityManagerFactoryRef = "mkidentEntityManagerFactory",
-        transactionManagerRef = "mkidentTransactionManager"
+        basePackages = "no.nav.dvh.kafka.consumer.datasource.personidentity",
+        entityManagerFactoryRef = "personidentityEntityManagerFactory",
+        transactionManagerRef = "personidentityTransactionManager"
 )
-class DsMkIdentConfig {
+class DsPersonIdentityConfig {
 
-    @Bean(name = "mkIdentDataSource")
-    @ConfigurationProperties(prefix = "dvh-kafka.database.mkident")
+    @Bean(name = "personidentityDataSource")
+    @ConfigurationProperties(prefix = "dvh-kafka.database.personidentity")
     public DataSource mkidentDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "mkidentEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean mkidentEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+    @Bean(name = "personidentityEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean personidentityEntityManagerFactory(EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(mkidentDataSource())
-                .packages(MkIdent.class)
+                .packages(PersonIdentity.class)
                 .properties(DsUtil.hibernateNamingStrategy())
                 .build();
     }
 
     @Bean
     public PlatformTransactionManager mkidentTransactionManager(
-            final @Qualifier("mkidentEntityManagerFactory") LocalContainerEntityManagerFactoryBean
-                    mkidentEntityManagerFactory) {
-        return new JpaTransactionManager(mkidentEntityManagerFactory.getObject());
+            final @Qualifier("personidentityEntityManagerFactory") LocalContainerEntityManagerFactoryBean
+                    personidentityEntityManagerFactory) {
+        return new JpaTransactionManager(personidentityEntityManagerFactory.getObject());
     }
 
 }
