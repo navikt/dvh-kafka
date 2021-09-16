@@ -103,7 +103,8 @@ class KafkaConfig {
         return new ContainerStoppingErrorHandler();
     }
 
-    private ConsumerFactory consumerFactory() {
+    @Bean
+    ConsumerFactory consumerFactory() {
         return new DefaultKafkaConsumerFactory(consumerProperties());
     }
 
