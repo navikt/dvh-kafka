@@ -33,24 +33,18 @@ public interface Listener<K, V> extends MessageListener<K, V> {
         metrikk().tellepunkt(LEST);
         try {
             prosseserMelding(record, kafkaMottatDato, lastetDato);
-        } catch (NestedRuntimeException e) {
-            throw e;
-        } catch (MismatchedInputException e) {
+        } catch (Exception e) {
             metrikk().tellepunkt(IKKE_PROSESSERT);
             LOGGER.error(
-                    "Could not parse the following message from Kafka producer: " +
+                    "Could not parse the following message from Kafka: " +
                             "Exception type: " + e.getClass().getName() +
-                            ", Received message key: " + record.key() +
                             ", Topic: " + record.topic() +
                             ", Partition: " + record.partition() +
                             ", Offset: " + record.offset()
             );
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
-        } catch (Exception e) {
-            prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
             throw e;
         }
-
         metrikk().tellepunkt(PROSESSERT);
     }
 
