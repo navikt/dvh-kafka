@@ -1,12 +1,10 @@
 package no.nav.dvh.kafka.consumer;
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.SneakyThrows;
 import no.nav.dvh.kafka.consumer.controller.Metrikk;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.NestedRuntimeException;
 import org.springframework.kafka.listener.MessageListener;
 
 import java.time.Instant;
