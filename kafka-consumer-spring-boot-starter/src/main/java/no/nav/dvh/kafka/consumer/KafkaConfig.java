@@ -2,10 +2,10 @@ package no.nav.dvh.kafka.consumer;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.config.SaslConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -115,5 +115,11 @@ class KafkaConfig {
         container.setupMessageListener(listener);
         container.setErrorHandler(containerErrorHandler());
         return container;
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "dvh-kafka.batch-interval")
+    BatchInterval batchInterval() {
+        return new BatchInterval();
     }
 }
