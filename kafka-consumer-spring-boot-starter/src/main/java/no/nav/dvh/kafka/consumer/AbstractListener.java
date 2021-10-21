@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.kafka.listener.AcknowledgingMessageListener;
 import org.springframework.kafka.listener.ConsumerSeekAware;
@@ -16,26 +17,28 @@ import java.util.Map;
 
 import static no.nav.dvh.kafka.consumer.controller.Metrikk.*;
 
-public interface Listener<K, V> extends AcknowledgingMessageListener<K, V>, ConsumerSeekAware {
-
+public abstract class AbstractListener<K, V> implements AcknowledgingMessageListener<K, V>, ConsumerSeekAware {
     Logger LOGGER =
-            LoggerFactory.getLogger(Listener.class);
+            LoggerFactory.getLogger(AbstractListener.class);
 
-    Metrikk metrikk();
+    @Autowired
+    private Metrikk metrikk;
 
-    BatchInterval batchInterval();
+    @Autowired
+    private BatchInterval batchInterval;
 
-    ConfigurableApplicationContext appContext();
+    @Autowired
+    private ConfigurableApplicationContext appContext;
 
     @SneakyThrows
     @Override
-    default void onMessage(ConsumerRecord<K , V> record, Acknowledgment acknowledgment) {
-        if (batchInterval().getStopDate() != null) {
-            var stopDate = batchInterval().getStopDate();
+    public void onMessage(ConsumerRecord<K, V> record, Acknowledgment acknowledgment) {
+        if (batchInterval.getStopDate() != null) {
+            var stopDate = batchInterval.getStopDate();
             var stopDateInEpochMilli = LocalDate.of(stopDate.getYear(), stopDate.getMonth(), stopDate.getDay()).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
             // var stopDateInEpochMilli = LocalDateTime.of(2021, 10, 20, 13, 40).toInstant(ZoneOffset.ofHours(2)).toEpochMilli();
             if (record.timestamp() >= stopDateInEpochMilli) {
-                appContext().close();
+                appContext.close();
                 return;
             }
         }
@@ -44,12 +47,12 @@ public interface Listener<K, V> extends AcknowledgingMessageListener<K, V>, Cons
 
         LocalDateTime lastetDato = LocalDateTime.now(ZoneId.of("Europe/Oslo"));
 
-        metrikk().tellepunkt(LEST);
+        metrikk.tellepunkt(LEST);
         try {
             prosseserMelding(record, kafkaMottatDato, lastetDato);
             acknowledgment.acknowledge();
         } catch (Exception e) {
-            metrikk().tellepunkt(IKKE_PROSESSERT);
+            metrikk.tellepunkt(IKKE_PROSESSERT);
             LOGGER.error(
                     "Could not parse the following message from Kafka: " +
                             "Exception type: " + e.getClass().getName() +
@@ -60,21 +63,22 @@ public interface Listener<K, V> extends AcknowledgingMessageListener<K, V>, Cons
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
             throw e;
         }
-        metrikk().tellepunkt(PROSESSERT);
+        metrikk.tellepunkt(PROSESSERT);
     }
 
-    void prosseserMelding(
+    protected abstract void prosseserMelding(
             ConsumerRecord<K, V> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
 
-    void prosseserFeilendeMeilding(
+    protected abstract void prosseserFeilendeMeilding(
             ConsumerRecord<K, V> record,
             LocalDateTime kafkaMottattDato,
             LocalDateTime lastetDato) throws Exception;
 
-    default void onPartitionsAssigned(Map<TopicPartition, Long> assignments, ConsumerSeekCallback callback) {
-        var startDate = batchInterval().getStartDate();
+    @Override
+    public void onPartitionsAssigned(Map<TopicPartition, Long> assignments, ConsumerSeekCallback callback) {
+        var startDate = batchInterval.getStartDate();
         if (startDate != null) {
             var startDateInEpochMilli = LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDay()).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
             callback.seekToTimestamp(assignments.keySet(), startDateInEpochMilli);
