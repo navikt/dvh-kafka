@@ -22,6 +22,7 @@ import static org.apache.kafka.clients.CommonClientConfigs.*;
 import static org.apache.kafka.common.config.SaslConfigs.*;
 import static org.apache.kafka.common.config.SslConfigs.*;
 import static org.apache.kafka.common.security.auth.SecurityProtocol.*;
+import static org.springframework.kafka.listener.ContainerProperties.AckMode.*;
 import static org.springframework.util.StringUtils.hasText;
 
 @EnableKafka
@@ -96,6 +97,8 @@ class KafkaConfig {
     private ContainerProperties containerProperties() {
         ContainerProperties props = new ContainerProperties(topics);
         props.setAuthorizationExceptionRetryInterval(Duration.ofMinutes(1L));
+        props.setAckMode(MANUAL);
+        props.setStopImmediate(true);
         return props;
     }
 
