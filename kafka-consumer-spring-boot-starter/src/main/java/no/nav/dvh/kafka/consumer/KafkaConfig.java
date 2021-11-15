@@ -87,7 +87,7 @@ class KafkaConfig {
         if (props.get(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG).equals(KafkaAvroDeserializer.class)) {
             props.putIfAbsent(BASIC_AUTH_CREDENTIALS_SOURCE, "USER_INFO");
             props.putIfAbsent(SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
-            props.putIfAbsent(USER_INFO_CONFIG, "$schemaRegistryUser:$schemaRegistryUserPassword");
+            props.putIfAbsent(USER_INFO_CONFIG, schemaRegistryUser + ":" + schemaRegistryUserPassword);
             props.putIfAbsent(SPECIFIC_AVRO_READER_CONFIG, true);
         }
 
