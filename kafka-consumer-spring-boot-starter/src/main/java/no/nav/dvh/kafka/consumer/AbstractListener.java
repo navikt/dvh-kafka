@@ -33,10 +33,10 @@ public abstract class AbstractListener<K, V> implements AcknowledgingMessageList
     @SneakyThrows
     @Override
     public void onMessage(ConsumerRecord<K, V> record, Acknowledgment acknowledgment) {
-        if (batchInterval.getStopDate() != null) {
-            var stopDate = batchInterval.getStopDate();
-            var stopDateInEpochMilli = LocalDate.of(stopDate.getYear(), stopDate.getMonth(), stopDate.getDay()).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
-            // var stopDateInEpochMilli = LocalDateTime.of(2021, 10, 20, 13, 40).toInstant(ZoneOffset.ofHours(2)).toEpochMilli();
+        var stopDate = batchInterval.getStopDate();
+        if (stopDate != null) {
+            var stopDateInEpochMilli = LocalDate.parse(stopDate).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
+
             if (record.timestamp() >= stopDateInEpochMilli) {
                 appContext.close();
                 return;
@@ -80,7 +80,7 @@ public abstract class AbstractListener<K, V> implements AcknowledgingMessageList
     public void onPartitionsAssigned(Map<TopicPartition, Long> assignments, ConsumerSeekCallback callback) {
         var startDate = batchInterval.getStartDate();
         if (startDate != null) {
-            var startDateInEpochMilli = LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDay()).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
+            var startDateInEpochMilli = LocalDate.parse(startDate).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
             callback.seekToTimestamp(assignments.keySet(), startDateInEpochMilli);
         }
     }
