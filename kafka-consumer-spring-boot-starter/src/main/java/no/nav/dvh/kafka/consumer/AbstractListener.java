@@ -61,6 +61,9 @@ public abstract class AbstractListener<K, V> implements AcknowledgingMessageList
                             ", Offset: " + record.offset()
             );
             prosseserFeilendeMeilding(record, kafkaMottatDato, lastetDato);
+            if (stopDate != null) {
+                appContext.close();
+            }
             throw e;
         }
         metrikk.tellepunkt(PROSESSERT);
